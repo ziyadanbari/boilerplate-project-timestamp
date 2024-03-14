@@ -32,9 +32,9 @@ app.get("/api/:date?", async function (req, res) {
   if (!date)
     return res
       .status(200)
-      .json({ unix: currentDate.getTime(), utc: currentDate.toString() });
+      .json({ unix: currentDate.getTime(), utc: currentDate.toUTCString() });
   const dateTime = new Date(date.isNumber() ? Number(date) : date);
-  const times = { unix: dateTime.getTime(), utc: dateTime.toString() };
+  const times = { unix: dateTime.getTime(), utc: dateTime.toUTCString() };
   if (!times.unix || times?.utc?.toLowerCase() === "invalid date")
     return res.status(400).json({ error: "Invalid Date" });
   return res.status(200).json(times);
